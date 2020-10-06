@@ -53,6 +53,17 @@ function Game(cells) {
       return;
     }
 
+    if (this.isDraw()) {
+      setTimeout(() => {
+
+        alert("Cats game!");
+        this.cleanup();
+
+      }, 0);
+
+      return;
+    }
+
     this.switchPlayer();
   };
 
@@ -83,6 +94,20 @@ function Game(cells) {
     return false;
   };
 
+  this.isDraw = () => {
+    let filledCellsCount = 0;
+
+    for (let line of this.board) {
+      for (let cell of line) {
+        if (cell) {
+          filledCellsCount++;
+        }
+      }
+    }
+
+    return filledCellsCount === 9;
+  };
+
   this.switchPlayer = () => {
     if (this.player === 'X') {
       this.player = '0';
@@ -92,6 +117,8 @@ function Game(cells) {
   };
 
   this.cleanup = () => {
+    this.player = 'X';
+
     this.board =
       [
         ['', '', ''],
