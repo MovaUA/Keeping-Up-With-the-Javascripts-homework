@@ -15,7 +15,7 @@ function App() {
 
   this.main = document.getElementById('main');
 
-  this.store = new Store();
+  this.store = new Store(window.localStorage);
 
   this.load = () => this.loadHome();
 

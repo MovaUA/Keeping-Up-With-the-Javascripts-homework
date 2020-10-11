@@ -1,4 +1,6 @@
-export default function Store() {
+export default function Store(storage) {
+
+  this.storage = storage;
 
   this.users = new Map();
 
@@ -7,7 +9,7 @@ export default function Store() {
     this.save();
   }
 
-  this.save = () => window.localStorage.setItem('users', JSON.stringify(Array.from(this.users.values())));
+  this.save = () => this.storage.setItem('users', JSON.stringify(Array.from(this.users.values())));
 
   try {
     const usersItem = window.localStorage.getItem('users');
