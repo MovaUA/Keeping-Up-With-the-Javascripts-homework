@@ -25,6 +25,7 @@ export default function Login(app) {
 
     if (!isValid) return;
 
+    app.user = app.store.users.get(data.email);
     app.loadDashboard();
   };
 

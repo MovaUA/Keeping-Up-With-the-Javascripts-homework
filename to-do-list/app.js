@@ -17,6 +17,8 @@ function App() {
 
   this.store = new Store(window.localStorage);
 
+  this.user = null;
+
   this.load = () => this.loadHome();
 
   this.loadHome = () => {
