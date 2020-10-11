@@ -1,7 +1,5 @@
 export default function Store(storage) {
 
-  this.storage = storage;
-
   this.users = new Map();
 
   this.addUser = (user) => {
@@ -9,10 +7,10 @@ export default function Store(storage) {
     this.save();
   }
 
-  this.save = () => this.storage.setItem('users', JSON.stringify(Array.from(this.users.values())));
+  this.save = () => storage.setItem('users', JSON.stringify(Array.from(this.users.values())));
 
   try {
-    const usersItem = window.localStorage.getItem('users');
+    const usersItem = storage.getItem('users');
     const usersObject = JSON.parse(usersItem);
     const usersArray = Array.isArray(usersObject) ? usersObject : [];
     for (let user of usersArray) {
