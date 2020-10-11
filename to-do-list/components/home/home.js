@@ -1,6 +1,6 @@
 import {
   loadChild
-} from '/utils.js';
+} from '/lib/utils.js';
 
 export default function Home(app) {
 

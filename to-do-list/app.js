@@ -1,4 +1,4 @@
-import Store from '/store.js';
+import Store from '/lib/store.js';
 import Home from '/components/home/home.js';
 import Signup from '/components/signup/signup.js';
 import Login from '/components/login/login.js';
