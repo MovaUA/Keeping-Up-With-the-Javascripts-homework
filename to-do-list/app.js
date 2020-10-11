@@ -3,6 +3,7 @@ import Home from '/components/home/home.js';
 import Signup from '/components/signup/signup.js';
 import Login from '/components/login/login.js';
 import Dashboard from '/components/dashboard/dashboard.js';
+import TodoList from '/components/todo-list/todo-list.js';
 
 document.addEventListener('DOMContentLoaded', loadApp);
 
@@ -39,6 +40,11 @@ function App() {
   this.loadDashboard = () => {
     const dashboard = new Dashboard(this);
     dashboard.load();
+  };
+
+  this.loadTodoList = (id) => {
+    const todoList = new TodoList(this, id);
+    todoList.load();
   };
 
 }

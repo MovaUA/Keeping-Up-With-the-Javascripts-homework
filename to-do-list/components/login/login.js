@@ -17,14 +17,12 @@ export default function Login(app) {
 
   this.getLoggedInUser = () => {
     try {
-      const userItem = window.sessionStorage.getItem('user');
-      const user = JSON.parse(userItem);
-      return typeof user === 'object' ? user : null;
+      const userId = window.sessionStorage.getItem('user.id');
+      return app.store.getUserById(userId);
     } catch {
       return null;
     }
   };
-
 
   this.submitForm = (e) => {
     e.preventDefault();
@@ -37,7 +35,7 @@ export default function Login(app) {
     if (!isValid) return;
 
     const user = app.store.users.get(data.email);
-    window.sessionStorage.setItem('user', JSON.stringify(user));
+    window.sessionStorage.setItem('user.id', user.id);
     app.user = user;
 
     app.loadDashboard();
