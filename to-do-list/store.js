@@ -1,4 +1,4 @@
-function Store() {
+export default function Store() {
   this.users = new Map();
 
   this.addUser = (user) => {
@@ -7,7 +7,6 @@ function Store() {
   }
 
   this.save = () => window.localStorage.setItem('users', JSON.stringify(Array.from(this.users.values())));
-
 
   try {
     const usersItem = window.localStorage.getItem('users');
@@ -19,5 +18,3 @@ function Store() {
   } catch {
   }
 }
-
-export default Store;

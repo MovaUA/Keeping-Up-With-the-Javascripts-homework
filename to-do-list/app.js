@@ -1,34 +1,59 @@
 import Store from '/store.js';
-
-const app = {
-  main: null,
-  store: new Store(),
-  landingPage: "",
-  signupForm: "",
-  loginForm: "",
-  dashboard: "",
-};
+import Home from '/components/home/home.js';
+import Signup from '/components/signup/signup.js';
+import Login from '/components/login/login.js';
 
 document.addEventListener('DOMContentLoaded', DOMContentLoaded);
 
-function DOMContentLoaded(e) {
+function DOMContentLoaded() {
+  const app = new App();
+  app.loadHome();
+}
+
+function App() {
   const main = document.getElementById('main');
-  const landingPage = document.getElementById('landingPage');
-  const signupForm = document.getElementById('signupForm');
-  const loginForm = document.getElementById('loginForm');
-  const dashboard = document.getElementById('dashboard');
 
-  app.main = main;
-  app.landingPage = landingPage.outerHTML;
-  app.signupForm = signupForm.outerHTML;
-  app.loginForm = loginForm.outerHTML;
-  app.dashboard = dashboard.outerHTML;
+  this.store = new Store();
 
-  loadLandingPage();
+  this.loadChild = childHTML => {
+    this.removeAllChildren(main);
+
+    const child = document.createElement('DIV');
+    child.innerHTML = childHTML;
+    main.appendChild(child);
+
+    return child;
+  }
+
+  this.removeAllChildren = parentElement => {
+    while (parentElement.firstChild) {
+      parentElement.removeChild(parentElement.firstChild);
+    }
+  };
+
+  this.loadHome = () => {
+    const home = new Home(this);
+    home.load();
+  };
+
+  this.loadSignup = () => {
+    const signup = new Signup(this);
+    signup.load();
+  };
+
+  this.loadLogin = () => {
+    const login = new Login(this);
+    login.load();
+  };
+
+
+  return this;
 }
 
 
 
+
+// Landing page -------------------------------------------------------------------
 
 function loadLandingPage() {
   removeAllChildren(app.main);
@@ -52,6 +77,7 @@ function removeAllChildren(element) {
 
 
 
+// Sign Up -------------------------------------------------------------------
 
 function loadSignupForm() {
   removeAllChildren(app.main);
@@ -131,6 +157,7 @@ function updateErrorsList(errorsArray) {
 
 
 
+// Log In -------------------------------------------------------------------
 
 function loadLoginForm() {
   removeAllChildren(app.main);
@@ -189,6 +216,7 @@ function validateLoginData(data) {
 
 
 
+// Dashboard -------------------------------------------------------------------
 
 function loadDashboard() {
   removeAllChildren(app.main);
