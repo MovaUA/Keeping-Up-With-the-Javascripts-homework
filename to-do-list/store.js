@@ -1,4 +1,5 @@
 export default function Store() {
+
   this.users = new Map();
 
   this.addUser = (user) => {
@@ -17,4 +18,5 @@ export default function Store() {
     }
   } catch {
   }
+
 }
