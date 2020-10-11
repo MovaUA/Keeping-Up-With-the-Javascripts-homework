@@ -29,14 +29,7 @@ export default function Store(storage) {
       const listsItem = storage.getItem('lists');
       const listsObject = JSON.parse(listsItem);
       const listsArray = Array.isArray(listsObject) ? listsObject : [];
-      const lists = [];
-      for (let list of listsArray) {
-        if (list.userId === userId) {
-          lists.push(list);
-        }
-      }
-      lists.sort((a, b) => a.createdAt - b.createdAt);
-      return lists;
+      return listsArray.filter(x => x.userId === userId);
     } catch {
       return [];
     }

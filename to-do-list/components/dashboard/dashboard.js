@@ -9,13 +9,12 @@ export default function Dashboard(app) {
       .then(response => response.text())
       .then(html => loadChild(app.main, html))
       .then(dashboard => {
-        const createButtons = dashboard.getElementsByClassName('create');
-
-        for (let createButton of createButtons) {
-          createButton.addEventListener('click', () => app.loadTodoList());
-        }
+        const createButton = dashboard.querySelector('.create');
+        createButton.addEventListener('click', () => app.loadTodoList());
 
         const todoLists = app.store.getTodoLists(app.user.id);
+        todoLists.sort((a, b) => a.createdAt - b.createdAt);
+
         const table = dashboard.querySelector('#to-do-list');
         const tbody = table.getElementsByTagName('TBODY')[0];
 

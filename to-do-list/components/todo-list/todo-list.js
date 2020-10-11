@@ -5,6 +5,7 @@ import {
 
 export default function TodoList(app, id) {
 
+  this.todoLists = null;
   this.list = null;
   this.listForm = null;
   this.addItemForm = null;
@@ -15,9 +16,11 @@ export default function TodoList(app, id) {
       .then(response => response.text())
       .then(html => loadChild(app.main, html))
       .then(view => {
-        const list = app.store.getTodoList(app.user.id, id);
+        this.todoLists = app.store.getTodoLists(app.user.id);
 
-        this.list = list ? list : {
+        const foundList = this.findListById(id);
+
+        this.list = foundList ? foundList : {
           userId: app.user.id,
           id: uuidv4(),
           name: '',
@@ -43,10 +46,44 @@ export default function TodoList(app, id) {
       });
   };
 
+  this.findListById = (id) => {
+    for (const list of this.todoLists) {
+      if (list.id === id) {
+        return list;
+      }
+    }
+    return null;
+  };
+
+  this.findListByName = (name) => {
+    for (const list of this.todoLists) {
+      if (list.name === name) {
+        return list;
+      }
+    }
+    return null;
+  };
+
   this.listFormSubmit = (e) => {
     e.preventDefault();
 
-    this.list.name = this.listForm['name'].value;
+    const name = this.listForm['name'].value;
+
+    if (!name) {
+      this.listError.innerText = 'Name is required.';
+      return;
+    }
+
+    const foundList = this.findListByName(name);
+
+    if (foundList && foundList.id !== this.list.id) {
+      this.listError.innerText = 'Another list with the same name exists.';
+      return;
+    }
+
+    this.listError.innerText = '';
+
+    this.list.name = name;
     app.store.saveTodoList(this.list);
   };
 
