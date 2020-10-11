@@ -2,34 +2,22 @@ import Store from '/store.js';
 import Home from '/components/home/home.js';
 import Signup from '/components/signup/signup.js';
 import Login from '/components/login/login.js';
+import Dashboard from '/components/dashboard/dashboard.js';
 
-document.addEventListener('DOMContentLoaded', DOMContentLoaded);
+document.addEventListener('DOMContentLoaded', loadApp);
 
-function DOMContentLoaded() {
+function loadApp() {
   const app = new App();
-  app.loadHome();
+  app.load();
 }
 
 function App() {
-  const main = document.getElementById('main');
+
+  this.main = document.getElementById('main');
 
   this.store = new Store();
 
-  this.loadChild = childHTML => {
-    this.removeAllChildren(main);
-
-    const child = document.createElement('DIV');
-    child.innerHTML = childHTML;
-    main.appendChild(child);
-
-    return child;
-  }
-
-  this.removeAllChildren = parentElement => {
-    while (parentElement.firstChild) {
-      parentElement.removeChild(parentElement.firstChild);
-    }
-  };
+  this.load = () => this.loadHome();
 
   this.loadHome = () => {
     const home = new Home(this);
@@ -46,8 +34,11 @@ function App() {
     login.load();
   };
 
+  this.loadDashboard = () => {
+    const dashboard = new Dashboard(this);
+    dashboard.load();
+  };
 
-  return this;
 }
 
 

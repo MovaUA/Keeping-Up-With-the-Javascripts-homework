@@ -1,9 +1,14 @@
+import {
+  removeAllChildren,
+  loadChild
+} from '/utils.js';
+
 export default function Login(app) {
 
   this.load = () => {
     fetch('components/login/login.html')
       .then(response => response.text())
-      .then(html => app.loadChild(html))
+      .then(html => loadChild(app.main, html))
       .then(node => {
         const form = node.querySelector('#form');
         form.addEventListener('submit', e => this.submitForm(e));
@@ -54,7 +59,7 @@ export default function Login(app) {
 
   this.displayErrors = (form, errors) => {
     const errorsContainer = form.querySelector('#errors');
-    app.removeAllChildren(errorsContainer);
+    removeAllChildren(errorsContainer);
 
     const addError = function (message) {
       const error = document.createElement('li');

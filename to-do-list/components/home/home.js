@@ -1,8 +1,13 @@
+import {
+  loadChild
+} from '/utils.js';
+
 export default function Home(app) {
+
   this.load = () => {
     fetch('components/home/home.html')
       .then(response => response.text())
-      .then(html => app.loadChild(html))
+      .then(html => loadChild(app.main, html))
       .then(home => {
         const signup = home.querySelector('#signup');
         const login = home.querySelector('#login');
@@ -11,4 +16,5 @@ export default function Home(app) {
         login.addEventListener('click', () => app.loadLogin());
       });
   };
+
 }
