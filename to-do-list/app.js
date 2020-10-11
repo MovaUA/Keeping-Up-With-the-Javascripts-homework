@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', loadApp);
 
 function loadApp() {
   const app = new App();
+  app.user = app.login.getLoggedInUser();
   app.load();
 }
 
@@ -17,9 +18,11 @@ function App() {
 
   this.store = new Store(window.localStorage);
 
+  this.login = new Login(this);
+
   this.user = null;
 
-  this.load = () => this.loadHome();
+  this.load = () => this.user ? this.loadDashboard() : this.loadHome();
 
   this.loadHome = () => {
     const home = new Home(this);
@@ -31,10 +34,7 @@ function App() {
     signup.load();
   };
 
-  this.loadLogin = () => {
-    const login = new Login(this);
-    login.load();
-  };
+  this.loadLogin = () => this.login.load();
 
   this.loadDashboard = () => {
     const dashboard = new Dashboard(this);

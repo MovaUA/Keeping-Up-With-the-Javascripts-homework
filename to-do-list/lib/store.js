@@ -9,6 +9,10 @@ export default function Store(storage) {
 
   this.save = () => storage.setItem('users', JSON.stringify(Array.from(this.users.values())));
 
+  this.getTodoList = (email) => {
+    return [];
+  };
+
   try {
     const usersItem = storage.getItem('users');
     const usersObject = JSON.parse(usersItem);

@@ -15,6 +15,17 @@ export default function Login(app) {
       });
   };
 
+  this.getLoggedInUser = () => {
+    try {
+      const userItem = window.sessionStorage.getItem('user');
+      const user = JSON.parse(userItem);
+      return typeof user === 'object' ? user : null;
+    } catch {
+      return null;
+    }
+  };
+
+
   this.submitForm = (e) => {
     e.preventDefault();
 
@@ -25,7 +36,10 @@ export default function Login(app) {
 
     if (!isValid) return;
 
-    app.user = app.store.users.get(data.email);
+    const user = app.store.users.get(data.email);
+    window.sessionStorage.setItem('user', JSON.stringify(user));
+    app.user = user;
+
     app.loadDashboard();
   };
 
