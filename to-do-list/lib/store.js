@@ -13,6 +13,12 @@ export default function Store(storage) {
     this.save();
   }
 
+  this.saveUser = (email, user) => {
+    this.users.delete(email);
+    this.users.set(user.email, user);
+    this.save();
+  }
+
   this.getUserById = (id) => {
     for (const user of this.users.values()) {
       if (user.id === id) {

@@ -5,6 +5,7 @@ import Signup from '/components/signup/signup.js';
 import Login from '/components/login/login.js';
 import Dashboard from '/components/dashboard/dashboard.js';
 import TodoList from '/components/todo-list/todo-list.js';
+import AccountSettings from '/components/account/account.js';
 
 document.addEventListener('DOMContentLoaded', loadApp);
 
@@ -69,7 +70,8 @@ function App() {
 
   this.loadAccountSettings = () => {
     this.loadHeader();
-    this.load();
+    const accountSeting = new AccountSettings(this);
+    accountSeting.load();
   };
 
 }
