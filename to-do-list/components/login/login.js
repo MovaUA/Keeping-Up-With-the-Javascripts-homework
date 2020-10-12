@@ -2,6 +2,7 @@ import {
   removeAllChildren,
   loadChild
 } from '/lib/utils.js';
+import '/lib/sha256.min.js';
 
 export default function Login(app) {
 
@@ -63,7 +64,7 @@ export default function Login(app) {
     }
 
     const user = app.store.users.get(data.email);
-    if (!user || data.password != user.password) {
+    if (!user || sha256(data.password) !== user.password) {
       errors.push('Invalid email and/or password.');
     }
 

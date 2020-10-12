@@ -1,4 +1,5 @@
 import { uuidv4 } from '/lib/utils.js';
+import '/lib/sha256.min.js';
 
 export default function Store(storage) {
 
@@ -8,6 +9,7 @@ export default function Store(storage) {
     user = {
       ...user,
       id: uuidv4(),
+      password: sha256(user.password),
     };
     this.users.set(user.email, user);
     this.save();
@@ -15,6 +17,20 @@ export default function Store(storage) {
 
   this.saveUser = (email, user) => {
     this.users.delete(email);
+
+    if (user.password) {
+      user = {
+        ...user,
+        password: sha256(user.password),
+      };
+    } else {
+      const existingUser = this.getUserById(user.id);
+      user = {
+        ...user,
+        password: existingUser.password,
+      };
+    }
+
     this.users.set(user.email, user);
     this.save();
   }

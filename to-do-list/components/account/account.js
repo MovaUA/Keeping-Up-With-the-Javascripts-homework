@@ -15,7 +15,7 @@ export default function AccountSettings(app) {
         form['first_name'].value = app.user.firstName;
         form['last_name'].value = app.user.lastName;
         form['email'].value = app.user.email;
-        form['password'].value = app.user.password;
+        form['password'].value = '';
         form['agree'].checked = app.user.agree;
 
         form.addEventListener('submit', e => this.submitForm(e));
@@ -37,7 +37,7 @@ export default function AccountSettings(app) {
       id: app.user.id,
     };
     app.store.saveUser(app.user.email, user);
-    app.user = user;
+    app.user = app.store.getUserById(app.user.id);
   };
 
   this.getFormData = (form) => {
@@ -63,9 +63,6 @@ export default function AccountSettings(app) {
       errors.push('Email is required.');
     } else if (data.email !== app.user.email && app.store.users.has(data.email)) {
       errors.push('User with the same email is already registered.');
-    }
-    if (!data.password) {
-      errors.push('Password is required.');
     }
     if (!data.agree) {
       errors.push('Agreement is required.');
