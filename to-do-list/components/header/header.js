@@ -11,6 +11,7 @@ export default function Header(app) {
       .then(header => {
         const logout = header.querySelector('#logout');
         const accountSettings = header.querySelector('#account-settings');
+        const dashboard = header.querySelector('#dashboard');
 
         if (!app.user) {
           header.style.display = 'none';
@@ -18,6 +19,7 @@ export default function Header(app) {
 
         logout.addEventListener('click', () => app.logout());
         accountSettings.addEventListener('click', () => app.loadAccountSettings());
+        dashboard.addEventListener('click', () => app.loadDashboard());
       });
   };
 
