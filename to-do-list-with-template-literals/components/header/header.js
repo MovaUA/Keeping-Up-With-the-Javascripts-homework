@@ -9,13 +9,17 @@ export default function Header(app) {
       .then(response => response.text())
       .then(html => loadChild(app.header, html))
       .then(header => {
+        if (!app.user) {
+          header.style.display = 'none';
+          return;
+        }
+
+        const welcome = header.querySelector('#welcome');
+        welcome.innerText = `Welcome, ${app.user.firstName} ${app.user.lastName}!`;
+
         const logout = header.querySelector('#logout');
         const accountSettings = header.querySelector('#account-settings');
         const dashboard = header.querySelector('#dashboard');
-
-        if (!app.user) {
-          header.style.display = 'none';
-        }
 
         logout.addEventListener('click', () => app.logout());
         accountSettings.addEventListener('click', () => app.loadAccountSettings());

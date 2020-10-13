@@ -38,6 +38,7 @@ export default function AccountSettings(app) {
     };
     app.store.saveUser(app.user.email, user);
     app.user = app.store.getUserById(app.user.id);
+    app.loadHeader();
   };
 
   this.getFormData = (form) => {
