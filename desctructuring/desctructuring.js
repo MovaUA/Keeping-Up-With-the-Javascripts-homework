@@ -27,3 +27,41 @@ if (age > 5) {
 const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const [, secondItem] = items;
 console.log({ secondItem });
+
+/*
+Nested desctructuring is the way to exactract a part of information from
+more complex objects which have not-primitive property values (like another object, or an array)
+or from multi-dimentional arrays or arrays of objects.
+*/
+const complexObject = {
+  id: 1,
+  addresses: [
+    { street: "First St.", number: 1 },
+    { street: "Second St.", number: 31 },
+    { street: "Another St.", number: 9 },
+  ],
+  phone: {
+    no: "123-4567",
+    type: "mobile",
+  },
+};
+
+const {
+  addresses: [, { number: secondStreetNumber }],
+} = complexObject;
+
+const {
+  phone: { type: phoneType },
+} = complexObject;
+
+console.log({ secondStreetNumber });
+console.log({ phoneType });
+
+const multiDimentionalArray = [
+  [1, "one"],
+  [2, "two"],
+  [3, "tree"],
+];
+for (const [num, text] of multiDimentionalArray) {
+  console.log(`number is ${num}, and text is "${text}"`);
+}
